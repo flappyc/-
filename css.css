@@ -5,11 +5,11 @@ body {
     color: #111111; }
     .menu { 
         text-align: center;
-        background-color: #426C35; }
+        background-color: #8B0000; }
         .footer p {
             color: #f5f5f5; }
             .menu {
-                background-color: #426C35;
+                background-color: #8B0000;
                 overflow: auto; }
                 .main {
                 overflow:auto;
@@ -45,7 +45,7 @@ body {
                         text-align: center;
                         border-style: solid;
                         border-width: 2px;
-                        border-color: #426C35;
+                        border-color: #8B0000;
                         border-radius: 6px;
                         margin: 2px;
                         object-fit: cover;
@@ -105,10 +105,15 @@ body {
                                 background-color: #d6d599;
                                 }
                                 h1 {
-                                    color: #426C35;
+                                    color: #BDA685;
                                     font-weight: bold;
                                     font-size: 36px;
                                     }
+                                    h3 {
+                                        color: #8B0000;
+                                        font-weight: bold;
+                                        font-size: 36px;
+                                        }
                                     .main h2 {
                                     overflow: auto;
                                     margin-top: 40px;
@@ -117,13 +122,27 @@ body {
                                     width: 200px;
                                     padding: 10px;
                                     background-color: #d6d599;
-                                    color: #426C35;
+                                    color: #8B0000;
                                     font-weight: bold;
                                     text-align: center;
                                     border-radius: 30px;
                                     }
+                                    h4 {
+                                        overflow: auto;
+                                        margin-top: 60px;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                        width: 600px;
+                                        padding: 20px;
+                                        background-color: peachpuff;
+                                        color: #111111;
+                                        font-weight: bold;
+                                        text-align: center;
+                                        border-radius: 30px;
+                                        font-size: 25px;
+                                        }
                                     .photos h2 {
-                                    color: #426C35;
+                                    color: #8B0000;
                                     font-size: 28px;
                                     }
                                     .footer h2{
