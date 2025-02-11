@@ -1,6 +1,9 @@
 body {
     font-family: 'Tahoma', 'Open Sans', sans-serif;
     background:white; }
+    text-align: center;
+    align-items: center;
+    font-size: bigger;
     p {
     color: #111111; }
     .menu { 
@@ -132,7 +135,7 @@ body {
                                         margin-top: 60px;
                                         margin-left: auto;
                                         margin-right: auto;
-                                        width: 600px;
+                                        width: 450px;
                                         padding: 20px;
                                         background-color: peachpuff;
                                         color: #111111;
