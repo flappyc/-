@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <title>صفحة الطالب - عبدالكريم خشيم</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables for colors */
+        :root {
+            --text-color: #333;
+            --background-color: #f0f2f5; /* Soft light gray for background */
+            --primary-color: #007bff; /* Deep Sky Blue - energetic */
+            --secondary-color: #6c757d;
+            --card-background: white;
+            --border-color: #e0e0e0; /* Lighter border */
+            --shadow-color: rgba(0, 0, 0, 0.1);
+
+            --button-bg-light: var(--primary-color);
+            --button-text-light: white;
+            --button-hover-light: #0056b3;
+            --gradient-start: #007bff;
+            --gradient-end: #00c6ff; /* Lighter blue for gradient */
+        }
+
+        body.dark-mode {
+            --text-color: #e0e0e0;
+            --background-color: #1a1a1a;
+            --primary-color: #6a9bd8;
+            --secondary-color: #a0a0a0;
+            --card-background: #2a2a2a;
+            --border-color: #444;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+
+            --button-bg-dark: var(--primary-color);
+            --button-text-dark: white;
+            --button-hover-dark: #4a7bbd;
+            --gradient-start: #6a9bd8;
+            --gradient-end: #8cc6e0; /* Lighter blue for dark mode gradient */
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding-top: 80px;
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out; /* Slower, smoother transition */
+            line-height: 1.6;
+            direction: rtl;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Container for better layout */
+        .container {
+            max-width: 960px; /* Slightly wider container */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInScale 1s ease-out forwards; /* Initial animation */
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            animation: subtleGlow 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes subtleGlow {
+            0% { transform: scale(1) rotate(45deg); opacity: 0.1; }
+            100% { transform: scale(1.1) rotate(45deg); opacity: 0.2; }
+        }
+
+        .header-section h1 {
+            color: white;
+            font-size: 3.5em; /* Larger name */
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative; /* For z-index */
+            z-index: 2;
+        }
+
+        .header-section p {
+            font-size: 1.8em; /* Larger class name */
+            margin-top: 0;
+            opacity: 0.9;
+            position: relative; /* For z-index */
+            z-index: 2;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid var(--border-color); /* Thicker HR */
+            margin: 40px auto;
+            width: 70%; /* Wider HR */
+            opacity: 0.6;
+            transition: border-color 0.5s ease-in-out;
+        }
+
+        /* Card Styling for sections */
+        .card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px var(--shadow-color);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out forwards; /* Fade in animation */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .card h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: separate; /* Use separate for rounded corners on cells */
+            border-spacing: 0;
+            margin: 0 auto; /* Remove margin from table, use card padding */
+            box-shadow: none; /* No shadow on table, shadow on card */
+            background-color: var(--card-background); /* Handled by card */
+            border-radius: 8px; /* Handled by card */
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 18px; /* Slightly more padding */
+            text-align: center;
+            font-size: 1.15em; /* Slightly larger font */
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600; /* Medium bold */
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--background-color);
+        }
+
+        body.dark-mode tr:nth-child(even) {
+            background-color: #222;
+        }
+
+        /* Animation for table rows */
+        tbody tr {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.6s ease-out forwards;
+        }
+
+        tbody tr:nth-child(1) { animation-delay: 0.2s; }
+        tbody tr:nth-child(2) { animation-delay: 0.4s; }
+        tbody tr:nth-child(3) { animation-delay: 0.6s; }
+        tbody tr:nth-child(4) { animation-delay: 0.8s; }
+        tbody tr:nth-child(5) { animation-delay: 1.0s; }
+        tbody tr:nth-child(6) { animation-delay: 1.2s; }
+        tbody tr:nth-child(7) { animation-delay: 1.4s; }
+        tbody tr:nth-child(8) { animation-delay: 1.6s; }
+        tbody tr:nth-child(9) { animation-delay: 1.8s; }
+        tbody tr:nth-child(10) { animation-delay: 2.0s; }
+        tbody tr:nth-child(11) { animation-delay: 2.2s; }
+        tbody tr:nth-child(12) { animation-delay: 2.4s; }
+        tbody tr:nth-child(13) { animation-delay: 2.6s; }
+        tbody tr:nth-child(14) { animation-delay: 2.8s; }
+        tbody tr:nth-child(15) { animation-delay: 3.0s; }
+        /* Add more for more rows */
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Theme Switcher Button Styling */
+        .theme-switcher {
+            position: fixed;
+            top: 25px;
+            left: 25px; /* Position on the left for better balance */
+            z-index: 1000;
+        }
+
+        .theme-switcher button {
+            padding: 12px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px var(--shadow-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Space between icon and text */
+
+            background-color: var(--button-bg-light);
+            color: var(--button-text-light);
+        }
+
+        body.dark-mode .theme-switcher button {
+            background-color: var(--button-bg-dark);
+            color: var(--button-text-dark);
+        }
+
+        .theme-switcher button:hover {
+            background-color: var(--button-hover-light);
+            transform: translateY(-3px); /* More pronounced lift */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode .theme-switcher button:hover {
+            background-color: var(--button-hover-dark);
+        }
+
+        /* Profile section */
+        .profile-section {
+            display: flex;
+            flex-direction: column; /* Stack on small screens */
+            align-items: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 4px 10px var(--shadow-color);
+            animation: bounceIn 1s ease-out forwards;
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-info p {
+            font-size: 1.2em;
+            color: var(--text-color);
+            margin: 8px 0;
+        }
+
+        .profile-info strong {
+            color: var(--primary-color);
+        }
+
+        /* Skills/Achievements Section */
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2.5em;
+            }
+            .header-section p {
+                font-size: 1.5em;
+            }
+            th, td {
+                padding: 12px;
+                font-size: 1em;
+            }
+            .theme-switcher {
+                top: 15px;
+                left: 15px;
+            }
+            .theme-switcher button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            .container {
+                padding: 10px;
+            }
+            .profile-section {
+                flex-direction: column;
+            }
+            .profile-picture {
+                width: 120px;
+                height: 120px;
+            }
+            .card {
+                padding: 20px;
+            }
+            .card h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switcher">
+        <button onclick="toggleTheme()">
+            <i class="fas fa-adjust"></i> تبديل الوضع
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>عبدالكريم أحمد خشيم</h1>
+            <p>الصف: 2ث/2</p>
+        </div>
+
+        <hr>
+
+        <div class="card profile-section-card">
+            <h2><i class="fas fa-user-circle"></i> ملف الطالب</h2>
+            <div class="profile-section">
+                <img src="ش.jpg" alt="صورة الطالب" class="profile-picture">
+                <div class="profile-info">
+                    <p><strong>اسم الطالب:</strong> عبدالكريم أحمد خشيم</p>
+                    <p><strong>الفصل الدراسي:</strong> 2ث/2</p>
+                    <p><strong>المدرسة:</strong> مدارس الخندق الأهلية</p>
+                    <p><strong>المعدل التراكمي:</strong> 100%</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card grades-card">
+            <h2><i class="fas fa-graduation-cap"></i> درجات الطلاب</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم الطالب</th>
+                        <th>درجة النظري</th>
+                        <th>درجة العملي</th>
+                        <th>المجموع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>عبدالكريم</td>
+                        <td>20</td>
+                        <td>20</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>أحمد</td>
+                        <td>20</td>
+                        <td>12</td>
+                        <td>32</td>
+                    </tr>
+                    <tr>
+                        <td>حمد</td>
+                        <td>11</td>
+                        <td>20</td>
+                        <td>31</td>
+                    </tr>
+                    <tr>
+                        <td>محمد</td>
+                        <td>19</td>
+                        <td>18</td>
+                        <td>37</td>
+                    </tr>
+                    <tr>
+                        <td>علي</td>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>31</td>
+                    </tr>
+                     <tr>
+                        <td>خالد</td>
+                        <td>20</td>
+                        <td>20</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>يوسف</td>
+                        <td>18</td>
+                        <td>17</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>فهد</td>
+                        <td>16</td>
+                        <td>19</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>سالم</td>
+                        <td>14</td>
+                        <td>15</td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>نايف</td>
+                        <td>20</td>
+                        <td>10</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>عبدالله</td>
+                        <td>17</td>
+                        <td>13</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>فيصل</td>
+                        <td>19</td>
+                        <td>14</td>
+                        <td>33</td>
+                    </tr>
+                    <tr>
+                        <td>ماجد</td>
+                        <td>12</td>
+                        <td>18</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>طلال</td>
+                        <td>18</td>
+                        <td>11</td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>بدر</td>
+                        <td>15</td>
+                        <td>20</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>سلطان</td>
+                        <td>17</td>
+                        <td>17</td>
+                        <td>34</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card achievements-card">
+            <h2><i class="fas fa-trophy"></i> إنجازاتي ومهاراتي</h2>
+            <ul class="skills-list">
+                <li class="skill-item">متفوق في مادة الرياضيات</li>
+                <li class="skill-item">عضو في نادي البرمجة</li>
+                <li class="skill-item">حاصل على شهادة في اللغة الإنجليزية</li>
+                <li class="skill-item">مطور واجهة أمامية (Front-end Developer)</li>
+                <li class="skill-item">مهارات حل المشكلات</li>
+                <li class="skill-item">العمل الجماعي</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        // دالة لتبديل الوضع وحفظه
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // عند تحميل الصفحة، تحقق من الوضع المحفوظ
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+
+            // Optional: Animate cards on scroll
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = `fadeIn 0.8s ease-out forwards`;
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+    </script>
+</body>
+</html>
