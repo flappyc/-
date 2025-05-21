@@ -262,6 +262,41 @@
             background-color: var(--button-hover-dark);
         }
 
+        /* Group Chat Icon Styling */
+        .group-chat-icon {
+            position: fixed;
+            top: 25px;
+            right: 25px; /* Position on the right */
+            z-index: 1000;
+        }
+
+        .group-chat-icon a {
+            display: block; /* Makes the whole area clickable */
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            border-radius: 50%; /* Makes it a circle */
+            font-size: 1.5em; /* Larger icon */
+            box-shadow: 0 2px 5px var(--shadow-color);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            text-align: center;
+            line-height: 1; /* Center the icon vertically */
+        }
+
+        .group-chat-icon a:hover {
+            background-color: var(--button-hover-light);
+            transform: translateY(-3px) scale(1.1); /* Lift and slightly enlarge */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode .group-chat-icon a {
+            background-color: var(--button-bg-dark);
+        }
+
+        body.dark-mode .group-chat-icon a:hover {
+            background-color: var(--button-hover-dark);
+        }
+
         /* Profile section */
         .profile-section {
             display: flex;
@@ -362,6 +397,14 @@
                 padding: 8px 15px;
                 font-size: 0.9em;
             }
+            .group-chat-icon {
+                top: 15px;
+                right: 15px;
+            }
+            .group-chat-icon a {
+                padding: 8px;
+                font-size: 1.2em;
+            }
             .container {
                 padding: 10px;
             }
@@ -379,6 +422,210 @@
                 font-size: 1.8em;
             }
         }
+        /* Chat Window Styling */
+        .chat-window {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px; /* Wider chat window */
+            height: 450px; /* Taller chat window */
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            transform: scale(0.95);
+            opacity: 0;
+            transform-origin: bottom right;
+        }
+
+        .chat-window.active {
+            display: flex;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .chat-header {
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 15px 20px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .chat-header .fas {
+            margin-left: 10px; /* Space for icon */
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8em;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chat:hover {
+            transform: rotate(90deg);
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: var(--background-color);
+            border-bottom: 1px solid var(--border-color);
+            scroll-behavior: smooth;
+            display: flex; /* Make it a flex container */
+            flex-direction: column; /* Stack messages vertically */
+        }
+
+        body.dark-mode .chat-messages {
+            background-color: #222;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%;
+            line-height: 1.4;
+            word-wrap: break-word; /* Ensure long words wrap */
+            position: relative; /* For timestamp */
+        }
+
+        .message.sent {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end; /* Push to the right */
+            margin-left: auto; /* Push to the right */
+            border-bottom-left-radius: 3px;
+        }
+
+        .message.received {
+            background-color: var(--secondary-color);
+            color: white;
+            align-self: flex-start; /* Push to the left */
+            margin-right: auto; /* Push to the left */
+            border-bottom-right-radius: 3px;
+        }
+
+        .message .sender-name {
+            display: block;
+            font-size: 0.8em;
+            font-weight: bold;
+            opacity: 0.8;
+            margin-bottom: 3px;
+        }
+
+        .message .message-text {
+            font-size: 0.95em;
+        }
+        
+        .message .timestamp {
+            font-size: 0.7em;
+            opacity: 0.7;
+            margin-top: 5px;
+            display: block;
+            text-align: right; /* Align timestamp to the right within the message bubble */
+        }
+        .message.received .timestamp {
+            text-align: left; /* Align timestamp to the left for received messages */
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-background);
+        }
+
+        .chat-input input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px; /* Straight corners for input */
+            font-family: 'Cairo', sans-serif;
+            font-size: 1em;
+            margin-left: 10px; /* Space from button */
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .chat-input input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+        body.dark-mode .chat-input input[type="text"] {
+            background-color: #333;
+            border-color: #555;
+            color: #eee;
+        }
+
+        /* Updated Send Button Styling */
+        .chat-input button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px; /* Straight corners */
+            padding: 10px 18px; /* Adjust padding for rectangular shape */
+            font-size: 1.1em; /* Slightly smaller font to fit better */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            display: flex; /* Align icon and text */
+            align-items: center;
+            gap: 5px; /* Space between icon and text */
+            min-width: 80px; /* Ensure a minimum width */
+            justify-content: center; /* Center content */
+        }
+
+        .chat-input button:hover {
+            background-color: var(--button-hover-light);
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode .chat-input button {
+            background-color: var(--button-bg-dark);
+        }
+
+        body.dark-mode .chat-input button:hover {
+            background-color: var(--button-hover-dark);
+        }
+
+        /* Responsive adjustments for chat window */
+        @media (max-width: 768px) {
+            .chat-window {
+                width: 90%;
+                height: 70%;
+                bottom: 10px;
+                right: 5%;
+                left: 5%; /* Center horizontally */
+            }
+            .chat-input button {
+                padding: 8px 12px;
+                font-size: 1em;
+                min-width: 60px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -386,6 +633,12 @@
         <button onclick="toggleTheme()">
             <i class="fas fa-adjust"></i> تبديل الوضع
         </button>
+    </div>
+
+    <div class="group-chat-icon">
+        <a href="#" aria-label="محادثة جماعية">
+            <i class="fas fa-comments"></i>
+        </a>
     </div>
 
     <div class="container">
@@ -451,7 +704,7 @@
                         <td>16</td>
                         <td>31</td>
                     </tr>
-                     <tr>
+                    <tr>
                         <td>خالد</td>
                         <td>20</td>
                         <td>20</td>
@@ -535,6 +788,24 @@
 
     </div>
 
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <h3><i class="fas fa-comments"></i> محادثة المجموعة</h3>
+            <button class="close-chat" onclick="toggleChat()">&times;</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message received">
+                <span class="sender-name">الإدارة</span>
+                <span class="message-text">مرحباً بكم في محادثة الطلاب!</span>
+                <span class="timestamp">09:00 ص</span>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="اكتب رسالتك هنا...">
+            <button id="send-button"><i class="fas fa-paper-plane"></i> إرسال</button>
+        </div>
+    </div>
+
     <script>
         // دالة لتبديل الوضع وحفظه
         function toggleTheme() {
@@ -545,6 +816,172 @@
                 localStorage.setItem('theme', 'light');
             }
         }
+
+        // --- وظائف الدردشة الجديدة ---
+        const chatWindow = document.getElementById('chat-window');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+
+        // *********************************************************************************
+        // *** تنبيه هام جداً: هذا الجزء يحتاج إلى خادم (Backend) يعمل بتقنية WebSockets ***
+        // *** لكي تتمكن الرسائل من الحفظ والمشاركة بين الأجهزة المختلفة.                  ***
+        // *** بدون خادم، الرسائل ستظهر فقط في متصفحك الحالي ولن تُحفظ أو تُشارك.           ***
+        // *** لا توجد طريقة لحفظ البيانات في "ملف Java خارجي" مباشرة من المتصفح.            ***
+        // *********************************************************************************
+
+        // هنا ستقوم بإنشاء اتصال WebSocket. حاليًا هو معطل (مُعلق)
+        // تحتاج لتغيير 'ws://localhost:3000' إلى عنوان خادمك الفعلي
+        // على سبيل المثال: 'wss://your-chat-server.com'
+        let websocket = null; 
+
+        // دالة لتهيئة اتصال WebSocket
+        function connectWebSocket() {
+            if (websocket && (websocket.readyState === WebSocket.OPEN || websocket.readyState === WebSocket.CONNECTING)) {
+                console.log("WebSocket connection is already open or connecting.");
+                return;
+            }
+
+            // *** غيّر هذا العنوان إلى عنوان خادمك الفعلي (Backend Server) للدردشة ***
+            // *** إذا كنت تستخدم Firebase أو خدمة مشابهة، فإن طريقة الربط ستختلف! ***
+            websocket = new WebSocket('ws://localhost:3000'); // مثال: قد يكون 'ws://your-server-ip:port'
+
+            websocket.onopen = (event) => {
+                console.log('تم الاتصال بخادم الدردشة.', event);
+                // هنا يمكنك إرسال رسالة ترحيب أو طلب سجل الرسائل السابقة من الخادم
+                // مثال: websocket.send(JSON.stringify({ type: 'getHistory', user: 'عبدالكريم' }));
+            };
+
+            websocket.onmessage = (event) => {
+                console.log('رسالة جديدة من الخادم:', event.data);
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.type === 'chatMessage') {
+                        // في تطبيق حقيقي، ستحتاج لمعرف مستخدم لتعرف ما إذا كانت رسالة مرسلة من المستخدم الحالي
+                        // للمحاكاة، سنفترض أن الرسائل التي تأتي من الخادم (وليست أنت) هي "مستلمة"
+                        const isSentByMe = (data.sender === "اسم المستخدم الحالي"); // استبدل "اسم المستخدم الحالي" باسم مستخدم فريد
+                        appendMessage(data.sender, data.message, data.timestamp, isSentByMe);
+                    }
+                } catch (e) {
+                    console.error("خطأ في تحليل الرسالة من الخادم:", e, event.data);
+                }
+            };
+
+            websocket.onclose = (event) => {
+                console.log('تم قطع الاتصال بخادم الدردشة:', event);
+                // محاولة إعادة الاتصال بعد فترة قصيرة
+                setTimeout(() => {
+                    console.log('إعادة محاولة الاتصال بـ WebSocket...');
+                    connectWebSocket();
+                }, 5000); // محاولة إعادة الاتصال بعد 5 ثوانٍ
+            };
+
+            websocket.onerror = (error) => {
+                console.error('خطأ في WebSocket:', error);
+                // يمكن إظهار رسالة خطأ للمستخدم هنا
+            };
+        }
+        
+        // دالة لإظهار/إخفاء نافذة الدردشة
+        function toggleChat() {
+            chatWindow.classList.toggle('active');
+            if (chatWindow.classList.contains('active')) {
+                // إذا تم فتح الدردشة، حاول الاتصال بالويب سوكيت
+                connectWebSocket(); 
+                chatMessages.scrollTop = chatMessages.scrollHeight; // التمرير لأسفل
+                messageInput.focus(); // تركيز على حقل الإدخال
+            } else {
+                // يمكنك هنا اختيار إغلاق اتصال WebSocket عند إغلاق نافذة الدردشة
+                // أو تركه مفتوحاً لاستلام الإشعارات في الخلفية
+                // if (websocket && websocket.readyState === WebSocket.OPEN) {
+                //     websocket.close();
+                //     websocket = null; 
+                // }
+            }
+        }
+
+        // دالة لإرسال رسالة عبر WebSocket
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText === '') return;
+
+            // يمكنك هنا الحصول على اسم المستخدم من مكان ما (مثلاً من جلسة دخول)
+            const currentUserName = "عبدالكريم"; // هذا الاسم سيظهر كمرسل
+
+            // وقت إرسال الرسالة
+            const now = new Date();
+            const timestamp = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+
+            // إذا كان اتصال WebSocket جاهزاً، أرسل الرسالة
+            if (websocket && websocket.readyState === WebSocket.OPEN) {
+                const messageData = {
+                    type: 'chatMessage',
+                    sender: currentUserName,
+                    message: messageText,
+                    timestamp: timestamp
+                    // في تطبيق حقيقي، ستضيف هنا user ID فريد لتعريف المرسل
+                    // userId: 'unique_user_id_from_login' 
+                };
+                websocket.send(JSON.stringify(messageData));
+                
+                // إضافة الرسالة إلى الواجهة فوراً لتجربة مستخدم أفضل
+                appendMessage(currentUserName, messageText, timestamp, true);
+
+            } else {
+                // إذا لم يكن الاتصال متاحاً، لا يمكن حفظ الرسالة أو مشاركتها
+                console.warn('WebSocket ليس متصلاً. لا يمكن إرسال الرسالة إلى الخادم لحفظها.');
+                // نضيفها محلياً فقط مع إشعار
+                appendMessage(currentUserName, messageText, timestamp, true);
+                alert('لا يمكن الاتصال بخادم الدردشة حاليًا. الرسالة لن تُحفظ أو تُشارك بين الأجهزة.');
+            }
+
+            messageInput.value = ''; // مسح حقل الإدخال
+            chatMessages.scrollTop = chatMessages.scrollHeight; // التمرير لأسفل
+        }
+
+        // دالة لإضافة الرسائل إلى واجهة المستخدم
+        function appendMessage(sender, message, timestamp, isSent) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(isSent ? 'sent' : 'received');
+
+            const senderNameElement = document.createElement('span');
+            senderNameElement.classList.add('sender-name');
+            senderNameElement.textContent = sender;
+
+            const messageContentElement = document.createElement('span');
+            messageContentElement.classList.add('message-text');
+            messageContentElement.textContent = message;
+
+            const timestampElement = document.createElement('span');
+            timestampElement.classList.add('timestamp');
+            timestampElement.textContent = timestamp;
+
+            messageElement.appendChild(senderNameElement);
+            messageElement.appendChild(messageContentElement);
+            messageElement.appendChild(timestampElement);
+            chatMessages.appendChild(messageElement);
+
+            chatMessages.scrollTop = chatMessages.scrollHeight; // التمرير لأسفل
+        }
+
+        // حدث النقر على أيقونة الدردشة لفتح/إغلاق النافذة
+        document.querySelector('.group-chat-icon a').addEventListener('click', function(event) {
+            event.preventDefault(); // منع السلوك الافتراضي للرابط
+            toggleChat();
+        });
+
+        // حدث النقر على زر الإرسال
+        sendButton.addEventListener('click', sendMessage);
+
+        // حدث الضغط على Enter في حقل إدخال الرسالة
+        messageInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        // --- نهاية وظائف الدردشة الجديدة ---
+
 
         // عند تحميل الصفحة، تحقق من الوضع المحفوظ
         window.onload = function() {
@@ -569,6 +1006,10 @@
             cards.forEach(card => {
                 observer.observe(card);
             });
+            // Initial scroll for chat window if it's active
+            if (chatWindow.classList.contains('active')) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
         }
     </script>
 </body>
