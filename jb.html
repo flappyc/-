@@ -23,6 +23,32 @@
                 transform: translate(-50%, -50%) rotate(0deg);
             }
         }
+        /* كود خاص لإجبار الدوران حتى في وضع ملء الشاشة */
+:-webkit-full-screen {
+  transform: rotate(90deg);
+  width: 100vh;
+  height: 100vw;
+  object-fit: contain;
+}
+
+:-ms-fullscreen {
+  transform: rotate(90deg);
+  width: 100vh;
+  height: 100vw;
+}
+
+:fullscreen {
+  transform: rotate(90deg);
+  width: 100vh;
+  height: 100vw;
+}
+
+/* تأكيد تدوير الـ wrapper داخل ملء الشاشة */
+.wrapper:fullscreen {
+    transform: rotate(90deg);
+    width: 100vh;
+    height: 100vw;
+}
     </style>
 </head>
 <body>
