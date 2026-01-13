@@ -3,44 +3,44 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
-    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
-    
-    #wrapper {
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 100vh; height: 100vw;
-        transform: translate(-50%, -50%) rotate(90deg);
-        transform-origin: center;
-    }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+        
+        #wrapper {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100vh; height: 100vw;
+            transform: translate(-50%, -50%) rotate(90deg);
+            background: #000;
+            display: flex; justify-content: center; align-items: center;
+        }
 
-    iframe { width: 100%; height: 100%; border: none; }
+        iframe { width: 100%; height: 100%; border: none; }
 
-    /* الحل الجذري لمشكلة الهروب للزاوية عند ملء الشاشة */
-    :fullscreen, :-webkit-full-screen {
-        background-color: black;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-
-    /* استهداف العنصر المدوّر داخل ملء الشاشة بدقة */
-    :fullscreen #wrapper, :-webkit-full-screen #wrapper {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        /* استخدام عرض الشاشة الحقيقي */
-        width: 100vh !important;
-        height: 100vw !important;
-        transform: translate(-50%, -50%) rotate(90deg) !important;
-        margin: 0 !important;
-    }
-
-    ::backdrop { background: black; }
-</style>
+        /* لضمان بقاء الدوران عند تفعيل الفول سكرين من المتصفح */
+        #wrapper:fullscreen {
+            width: 100vh !important;
+            height: 100vw !important;
+            transform: translate(-50%, -50%) rotate(90deg) !important;
+        }
+    </style>
 </head>
 <body>
+
     <div id="wrapper">
-        <iframe src="index.html" allowfullscreen></iframe>
+        <iframe src="index.html" id="gameFrame" allowfullscreen></iframe>
     </div>
+
+    <script>
+        const wrapper = document.getElementById('wrapper');
+
+        // بمجرد لمس الشاشة، سيحاول الدخول في وضع ملء الشاشة للحاوية المدوّرة
+        document.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                wrapper.requestFullscreen().catch(err => {
+                    console.log("الطلب مرفوض أو مدعوم فقط عبر زر داخلي");
+                });
+            }
+        });
+    </script>
 </body>
 </html>
