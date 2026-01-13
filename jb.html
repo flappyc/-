@@ -1,59 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
-        
-        /* تدوير الحاوية بالكامل بما فيها اللمس */
-        .wrapper {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 100vh; height: 100vw;
-            transform: translate(-50%, -50%) rotate(90deg);
+        #container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* الكود السحري للتدوير في ملء الشاشة */
+        .force-landscape {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            width: 100vh !important;
+            height: 100vw !important;
+            transform: translate(-50%, -50%) rotate(90deg) !important;
         }
-
-        iframe {
-            width: 100%; height: 100%; border: none;
-        }
-
-        /* إذا قام المستخدم بفتح قفل التدوير وقلب هاتفه فعلياً، نعيد الشاشة لوضعها الطبيعي */
-        @media screen and (orientation: landscape) {
-            .wrapper {
-                width: 100vw; height: 100vh;
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-        }
-        /* كود خاص لإجبار الدوران حتى في وضع ملء الشاشة */
-:-webkit-full-screen {
-  transform: rotate(90deg);
-  width: 100vh;
-  height: 100vw;
-  object-fit: contain;
-}
-
-:-ms-fullscreen {
-  transform: rotate(90deg);
-  width: 100vh;
-  height: 100vw;
-}
-
-:fullscreen {
-  transform: rotate(90deg);
-  width: 100vh;
-  height: 100vw;
-}
-
-/* تأكيد تدوير الـ wrapper داخل ملء الشاشة */
-.wrapper:fullscreen {
-    transform: rotate(90deg);
-    width: 100vh;
-    height: 100vw;
-}
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <iframe src="index.html"></iframe>
+    <div id="container">
+        <iframe src="index.html" id="indexFrame"></iframe>
     </div>
+
+    <script>
+        const container = document.getElementById('container');
+        
+        // مراقبة وضع ملء الشاشة
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                // إذا دخل ملء الشاشة والجوال واقف، اجبر الدوران
+                if (window.innerHeight > window.innerWidth) {
+                    container.classList.add('force-landscape');
+                }
+            } else {
+                container.classList.remove('force-landscape');
+            }
+        });
+
+        // تشغيل ملء الشاشة عند أول لمسة (لأن المتصفح يمنعه تلقائياً)
+        document.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    console.log("Error attempting to enable full-screen");
+                });
+            }
+        });
+    </script>
 </body>
 </html>
