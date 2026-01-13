@@ -1,46 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; font-family: sans-serif; }
         
-        #wrapper {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 100vh; height: 100vw;
-            transform: translate(-50%, -50%) rotate(90deg);
-            background: #000;
-            display: flex; justify-content: center; align-items: center;
-        }
-
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* لضمان بقاء الدوران عند تفعيل الفول سكرين من المتصفح */
-        #wrapper:fullscreen {
-            width: 100vh !important;
-            height: 100vw !important;
-            transform: translate(-50%, -50%) rotate(90deg) !important;
+        /* رسالة تدوير الجوال */
+        #rotate-message {
+            display: none; /* مخفية افتراضياً */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #111;
+            color: white;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* تظهر فقط عندما يكون الجوال واقفاً */
+        @media screen and (orientation: portrait) {
+            #rotate-message { display: flex; }
+        }
+
+        .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: rotateAnim 2s infinite;
+        }
+
+        @keyframes rotateAnim {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
+            100% { transform: rotate(0deg); }
         }
     </style>
 </head>
 <body>
 
-    <div id="wrapper">
-        <iframe src="index.html" id="gameFrame" allowfullscreen></iframe>
+    <div id="rotate-message">
+        <div class="icon">📱🔄</div>
+        <h2>يرجى تدوير الجوال للعب</h2>
+        <p>تأكد من إيقاف "قفل التدوير" في جهازك</p>
     </div>
 
-    <script>
-        const wrapper = document.getElementById('wrapper');
+    <iframe src="index.html" allowfullscreen></iframe>
 
-        // بمجرد لمس الشاشة، سيحاول الدخول في وضع ملء الشاشة للحاوية المدوّرة
-        document.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                wrapper.requestFullscreen().catch(err => {
-                    console.log("الطلب مرفوض أو مدعوم فقط عبر زر داخلي");
-                });
-            }
-        });
-    </script>
 </body>
 </html>
