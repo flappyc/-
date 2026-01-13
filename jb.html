@@ -1,59 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
         
-        /* تدوير الحاوية بالكامل بما فيها اللمس */
-        .wrapper {
+        #wrapper {
             position: absolute;
             top: 50%; left: 50%;
             width: 100vh; height: 100vw;
             transform: translate(-50%, -50%) rotate(90deg);
+            transform-origin: center;
         }
 
-        iframe {
-            width: 100%; height: 100%; border: none;
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* السر هنا: استهداف أي عنصر يدخل وضع ملء الشاشة وإجباره على الدوران */
+        
+        /* للمتصفحات الحديثة */
+        :fullscreen, :fullscreen * {
+            transform: rotate(90deg) !important;
+            width: 100vh !important;
+            height: 100vw !important;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            translate: -50% -50% !important;
         }
 
-        /* إذا قام المستخدم بفتح قفل التدوير وقلب هاتفه فعلياً، نعيد الشاشة لوضعها الطبيعي */
-        @media screen and (orientation: landscape) {
-            .wrapper {
-                width: 100vw; height: 100vh;
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
+        /* لمتصفحات Chrome و Safari على الجوال */
+        :-webkit-full-screen, :-webkit-full-screen * {
+            transform: rotate(90deg) !important;
+            width: 100vh !important;
+            height: 100vw !important;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            translate: -50% -50% !important;
         }
-        /* كود خاص لإجبار الدوران حتى في وضع ملء الشاشة */
-:-webkit-full-screen {
-  transform: rotate(90deg);
-  width: 100vh;
-  height: 100vw;
-  object-fit: contain;
-}
 
-:-ms-fullscreen {
-  transform: rotate(90deg);
-  width: 100vh;
-  height: 100vw;
-}
-
-:fullscreen {
-  transform: rotate(90deg);
-  width: 100vh;
-  height: 100vw;
-}
-
-/* تأكيد تدوير الـ wrapper داخل ملء الشاشة */
-.wrapper:fullscreen {
-    transform: rotate(90deg);
-    width: 100vh;
-    height: 100vw;6
-}
+        /* لضمان عدم وجود مساحات بيضاء خلف اللعبة */
+        ::backdrop {
+            background: black;
+        }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <iframe src="index.html"></iframe>
+    <div id="wrapper">
+        <iframe src="index.html" allowfullscreen></iframe>
     </div>
 </body>
 </html>
