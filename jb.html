@@ -1,58 +1,59 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
         
-        #wrapper {
+        /* تدوير الحاوية بالكامل بما فيها اللمس */
+        .wrapper {
             position: absolute;
             top: 50%; left: 50%;
             width: 100vh; height: 100vw;
             transform: translate(-50%, -50%) rotate(90deg);
-            transform-origin: center;
-            background: #000;
         }
 
-        iframe { width: 100%; height: 100%; border: none; }
-
-        /* السر هنا: إجبار الدوران حتى لو العنصر دخل وضع ملء الشاشة */
-        #wrapper:fullscreen, #wrapper:-webkit-full-screen {
-            width: 100vh !important;
-            height: 100vw !important;
-            transform: translate(-50%, -50%) rotate(90deg) !important;
+        iframe {
+            width: 100%; height: 100%; border: none;
         }
+
+        /* إذا قام المستخدم بفتح قفل التدوير وقلب هاتفه فعلياً، نعيد الشاشة لوضعها الطبيعي */
+        @media screen and (orientation: landscape) {
+            .wrapper {
+                width: 100vw; height: 100vh;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+        }
+        /* كود خاص لإجبار الدوران حتى في وضع ملء الشاشة */
+:-webkit-full-screen {
+  transform: rotate(90deg);
+  width: 100vh;
+  height: 100vw;
+  object-fit: contain;
+}
+
+:-ms-fullscreen {
+  transform: rotate(90deg);
+  width: 100vh;
+  height: 100vw;
+}
+
+:fullscreen {
+  transform: rotate(90deg);
+  width: 100vh;
+  height: 100vw;
+}
+
+/* تأكيد تدوير الـ wrapper داخل ملء الشاشة */
+.wrapper:fullscreen {
+    transform: rotate(90deg);
+    width: 100vh;
+    height: 100vw;6
+}
     </style>
 </head>
 <body>
-    <div id="wrapper">
-        <iframe src="index.html" id="gameFrame" allowfullscreen></iframe>
+    <div class="wrapper">
+        <iframe src="index.html"></iframe>
     </div>
-
-    <script>
-        // كود ذكي لاعتراض طلب ملء الشاشة من داخل الـ iframe
-        // وتحويله إلى الـ wrapper المدوّر تلقائياً
-        const wrapper = document.getElementById('wrapper');
-        const iframe = document.getElementById('gameFrame');
-
-        // استماع لأي تغيير في وضع ملء الشاشة
-        document.addEventListener('fullscreenchange', handleFullScreen);
-        document.addEventListener('webkitfullscreenchange', handleFullScreen);
-
-        function handleFullScreen() {
-            // إذا حاول أي عنصر داخلي (مثل Canvas اللعبة) دخول ملء الشاشة
-            if (document.fullscreenElement === iframe || document.webkitFullscreenElement === iframe) {
-                // نخرج من ملء الشاشة الصغير ونفعله للحاوية الكبيرة المدوّرة
-                document.exitFullscreen();
-                wrapper.requestFullscreen();
-            }
-        }
-
-        // تحسين اللمس: منع السحب العشوائي الذي قد يخرب الإحداثيات
-        document.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 1) e.preventDefault();
-        }, { passive: false });
-    </script>
 </body>
 </html>
